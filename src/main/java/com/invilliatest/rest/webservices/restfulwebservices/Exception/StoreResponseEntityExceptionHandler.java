@@ -2,15 +2,17 @@ package com.invilliatest.rest.webservices.restfulwebservices.Exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.invilliatest.rest.webservices.restfulwebservices.payment.PaymentNotFoundException;
+import com.invilliatest.rest.webservices.restfulwebservices.Exception.Payment.PaymentNotFoundException;
 
 /*ControllerAdivice, para ser compartilhado para os outros controlers. 
  *RestController, para padronizar a exceção como uma resposta interpretável por outros consumers deste recurso*/
@@ -30,5 +32,14 @@ public class StoreResponseEntityExceptionHandler extends ResponseEntityException
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), webRequest.getDescription(false));
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(
+			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+		
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }

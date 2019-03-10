@@ -1,4 +1,4 @@
-package com.invilliatest.rest.webservices.restfulwebservices.payment;
+package com.invilliatest.rest.webservices.restfulwebservices.Exception.Payment;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
