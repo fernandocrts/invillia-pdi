@@ -2,14 +2,19 @@ package com.invilliatest.rest.webservices.restfulwebservices.payment;
 
 import java.util.Date;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Size;
+
 public class Payment {
 	
 	private Integer id;
 	
 	private String status;
 	
+	@Size(min=14, max=17, message="A quantidade de digitos de um cartão de crédito deve ser entre 14 e 17")
 	private String creditcardNumber;
 	
+	@FutureOrPresent
 	private Date paymentDate;
 	
 	protected Payment() {
