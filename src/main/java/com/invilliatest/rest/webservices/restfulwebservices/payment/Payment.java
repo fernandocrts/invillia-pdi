@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
+@JsonFilter("PaymentFilter")
 public class Payment {
 	
 	private Integer id;
