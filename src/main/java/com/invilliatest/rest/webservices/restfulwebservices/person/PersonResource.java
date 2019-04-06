@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PersonResource {
-
+  
 	/*Url Versioning*/
 	@GetMapping("/person/v1")
 	public Person personV1() {
@@ -41,6 +41,7 @@ public class PersonResource {
 	
 	/*Mime type Versioning*/
 	@GetMapping(value = "/person/produces", produces = "application/vnd.company.app-v1+json")
+
 	public Person producesv1() {
 		return new Person("Fernando Salgueiro");
 	}
@@ -49,4 +50,5 @@ public class PersonResource {
 	public Personv2 producesv2() {
 		return new Personv2(new Name("Fernando", "Salgueiro"));
 	}
+  
 }
