@@ -1,11 +1,10 @@
 package com.invilliatest.rest.webservices.restfulwebservices.person;
 
-public class Personv2 {
-
+public class Name {
 	private String firstName;
 	private String lastName;
 	
-	public Personv2(String firstName, String lastName) {
+	public Name(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

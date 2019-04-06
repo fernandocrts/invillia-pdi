@@ -15,5 +15,4 @@ public class Person {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	
 }
