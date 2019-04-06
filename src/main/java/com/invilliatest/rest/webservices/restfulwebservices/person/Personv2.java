@@ -1,19 +1,30 @@
 package com.invilliatest.rest.webservices.restfulwebservices.person;
 
 public class Personv2 {
-	private Name name;
+
+	private String firstName;
+	private String lastName;
 	
-	public Personv2(Name name) {
+	public Personv2(String firstName, String lastName) {
 		super();
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
-
-	public Name getName() {
-		return name;
+	
+	public String getFirstName() {
+		return firstName;
 	}
-
-	public void setName(Name name) {
-		this.name = name;
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

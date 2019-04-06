@@ -1,18 +1,18 @@
 package com.invilliatest.rest.webservices.restfulwebservices.person;
 
 public class Person {
-	private String name;
+	private String fullName;
 	
-	public Person(String name) {
+	public Person(String fullName) {
 		super();
-		this.name = name;
+		this.fullName = fullName;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }
