@@ -2,14 +2,21 @@ package com.invilliatest.rest.webservices.restfulwebservices.payment;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 @JsonFilter("PaymentFilter")
+@Entity
 public class Payment {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	
 	private String status;

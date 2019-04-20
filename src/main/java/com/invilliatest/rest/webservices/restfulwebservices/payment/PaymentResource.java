@@ -5,9 +5,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -30,11 +32,11 @@ import com.invilliatest.rest.webservices.restfulwebservices.Exception.Payment.Pa
 public class PaymentResource{
 
 	@Autowired
-	private PaymentDaoService paymentDaoService;
-
+	private PaymentRepository paymentRepository;
+	
 	@GetMapping(path = "/payments")
 	public MappingJacksonValue retrieveAllPayments() {
-		List<Payment> payments = paymentDaoService.findAll();
+		List<Payment> payments = paymentRepository.findAll();
 		SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
 				.filterOutAllExcept("id","status","paymentDate");
 		
@@ -48,14 +50,14 @@ public class PaymentResource{
 
 	@GetMapping(path = "/payments/{id}")
 	public MappingJacksonValue retrievePayment(@PathVariable int id) throws PaymentNotFoundException {
-		Payment payment = paymentDaoService.findOne(id);
+		Optional<Payment> payment = paymentRepository.findById(id);
 		
-		if(payment == null)
+		if(!payment.isPresent())
 			throw new PaymentNotFoundException("id - " + id);
 		
-		EntityModel<Payment> paymentEntityModel = new EntityModel<Payment>(payment);
+		EntityModel<Payment> paymentEntityModel = new EntityModel<Payment>(payment.get());
 		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllPayments());
-		paymentEntityModel.add(linkTo.withRel("all-users"));
+		paymentEntityModel.add(linkTo.withRel("all-payments"));
 		
 		SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
 				.filterOutAllExcept("id","status","creditcardNumber","paymentDate");
@@ -70,18 +72,13 @@ public class PaymentResource{
 
 	@PostMapping("/payments")
 	public ResponseEntity<Object> createPayment(@Valid @RequestBody Payment payment) {
-		Payment savedPayment = paymentDaoService.save(payment);
+		Payment savedPayment = paymentRepository.save(payment);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPayment.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
 	@DeleteMapping("/payments/{id}")
-	public ResponseEntity<Object> deletePayment(@PathVariable int id){
-		Payment deletedPayment = paymentDaoService.deleteById(id);
-		
-		if (deletedPayment == null)
-			throw new PaymentNotFoundException("id - " + id);
-		
-		return ResponseEntity.noContent().build();
+	public void deletePayment(@PathVariable int id){
+		paymentRepository.deleteById(id);
 	}
 }

@@ -1,10 +1,23 @@
 package com.invilliatest.rest.webservices.restfulwebservices.orderItem;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class OrderItem {
-	private int id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer id;
 	private String description;
 	private double price;
 	private Integer quantity;
+	
+	public OrderItem() {
+		
+	}
 	
 	public OrderItem(int id, String description, double price, int quantity) {
 		super();
