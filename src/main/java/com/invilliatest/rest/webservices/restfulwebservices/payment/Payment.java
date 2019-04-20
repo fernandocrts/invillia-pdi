@@ -6,10 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.invilliatest.rest.webservices.restfulwebservices.order.Order;
 
 @JsonFilter("PaymentFilter")
 @Entity
@@ -27,6 +30,17 @@ public class Payment {
 	@FutureOrPresent
 	private Date paymentDate;
 	
+	@OneToOne(mappedBy = "payment")
+	private Order order;
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	protected Payment() {
 		
 	}
@@ -38,7 +52,7 @@ public class Payment {
 		this.creditcardNumber = creditcardNumber;
 		this.paymentDate = paymentDate;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

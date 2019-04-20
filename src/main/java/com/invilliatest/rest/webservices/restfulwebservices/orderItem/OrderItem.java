@@ -1,9 +1,13 @@
 package com.invilliatest.rest.webservices.restfulwebservices.orderItem;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.invilliatest.rest.webservices.restfulwebservices.order.Order;
 
 @Entity
 public class OrderItem {
@@ -14,6 +18,9 @@ public class OrderItem {
 	private String description;
 	private double price;
 	private Integer quantity;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Order order;
 	
 	public OrderItem() {
 		

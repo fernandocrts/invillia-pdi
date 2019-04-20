@@ -4,12 +4,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -51,7 +51,6 @@ public class PaymentResource{
 	@GetMapping(path = "/payments/{id}")
 	public MappingJacksonValue retrievePayment(@PathVariable int id) throws PaymentNotFoundException {
 		Optional<Payment> payment = paymentRepository.findById(id);
-		
 		if(!payment.isPresent())
 			throw new PaymentNotFoundException("id - " + id);
 		

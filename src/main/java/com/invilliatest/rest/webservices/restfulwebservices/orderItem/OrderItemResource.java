@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderItemResource {
 	
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderItemRepository orderRepository;
 	
 	@GetMapping("/orderitems")
 	public List<OrderItem> retrieveAllItens(){
